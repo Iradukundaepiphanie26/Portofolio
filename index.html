@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRADUKUNDA Epiphanie | Software Developer & Database Specialist</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            900: '#134e4a',
+                            cyan: '#06b6d4',
+                            emerald: '#10b981'
+                        },
+                        darkbg: '#0b0f19',
+                        cardbg: '#111827',
+                        borderbg: '#1f2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'Consolas', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card:hover {
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-border {
+            position: relative;
+        }
+        .gradient-border::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #06b6d4, #10b981);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-gray-200 antialiased selection:bg-cyan-500 selection:text-white">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-600 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-emerald-400">
+        <i class="fa-solid fa-circle-check text-xl"></i>
+        <span id="toast-message">Copied to clipboard!</span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full glass-card border-b border-gray-800 bg-opacity-80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#hero" class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-500 flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-cyan-500/20">
+                    IE
+                </div>
+                <span class="font-bold text-xl tracking-tight text-white">IRADUKUNDA <span class="text-cyan-400">E.</span></span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+                <a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
+                <a href="#experience" class="hover:text-cyan-400 transition-colors">Experience</a>
+                <a href="#security" class="hover:text-cyan-400 transition-colors">Security</a>
+                <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+            </nav>
+
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="https://www.linkedin.com/in/iradukunda-epiphanie-107865410/" target="_blank" rel="noopener noreferrer" class="p-2 text-gray-400 hover:text-cyan-400 transition-colors">
+                    <i class="fa-brands fa-linkedin text-xl"></i>
+                </a>
+                <a href="#contact" class="px-4 py-2 text-sm font-semibold rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500 hover:text-white transition-all duration-300">
+                    Get in Touch
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-400 hover:text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-6 space-y-3 bg-cardbg border-b border-gray-800">
+            <a href="#about" class="block py-2 text-gray-300 hover:text-cyan-400">About</a>
+            <a href="#skills" class="block py-2 text-gray-300 hover:text-cyan-400">Skills</a>
+            <a href="#projects" class="block py-2 text-gray-300 hover:text-cyan-400">Projects</a>
+            <a href="#experience" class="block py-2 text-gray-300 hover:text-cyan-400">Experience</a>
+            <a href="#security" class="block py-2 text-gray-300 hover:text-cyan-400">Security</a>
+            <a href="#contact" class="block py-2 text-gray-300 hover:text-cyan-400">Contact</a>
+            <div class="pt-2 flex items-center space-x-4">
+                <a href="https://www.linkedin.com/in/iradukunda-epiphanie-107865410/" target="_blank" class="text-gray-400 hover:text-cyan-400">
+                    <i class="fa-brands fa-linkedin text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-12">
+
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-[80vh] flex flex-col justify-center relative pt-8">
+            <!-- Background Glow FX -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+            <div class="absolute top-1/3 right-10 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold tracking-wide uppercase">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Available for Junior Developer & Database Roles
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        Hi, I'm <span class="gradient-text">IRADUKUNDA Epiphanie</span>
+                    </h1>
+
+                    <p class="text-xl text-gray-300 font-mono h-8">
+                        <span id="typing-text" class="text-cyan-400 border-r-2 border-cyan-400 pr-1"></span>
+                    </p>
+
+                    <p class="text-gray-400 max-w-2xl text-base sm:text-lg leading-relaxed">
+                        Business Information Technology Graduate with hands-on experience in full-stack web development, relational database design, data analysis, and foundational cybersecurity. Passionate about solving real operational challenges with reliable software.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
+                        <a href="#projects" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all duration-300 flex items-center gap-2">
+                            <i class="fa-solid fa-code"></i> View Projects
+                        </a>
+                        <a href="#contact" class="px-6 py-3 rounded-xl glass-card hover:bg-gray-800 text-white font-semibold border border-gray-700 transition-all duration-300 flex items-center gap-2">
+                            <i class="fa-solid fa-envelope"></i> Contact Me
+                        </a>
+                        <button onclick="downloadResume()" class="px-6 py-3 rounded-xl bg-gray-800/80 hover:bg-gray-700 text-gray-200 font-semibold border border-gray-700 transition-all duration-300 flex items-center gap-2">
+                            <i class="fa-solid fa-file-arrow-down"></i> Resume Summary
+                        </button>
+                    </div>
+
+                    <!-- Location & Contacts Quick Strip -->
+                    <div class="pt-6 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-gray-400 border-t border-gray-800">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-cyan-400"></i>
+                            Nyagatare, Eastern Province, Rwanda
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-emerald-400"></i>
+                            +250 786 463 560
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-cyan-400"></i>
+                            BSc BIT Graduate (UR)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats / Quick Highlight Cards -->
+                <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+                    <div class="glass-card p-6 rounded-2xl border border-gray-800 space-y-2">
+                        <div class="text-3xl font-extrabold text-cyan-400">3+</div>
+                        <div class="text-sm font-medium text-gray-300">Practical Internships</div>
+                        <p class="text-xs text-gray-500">UR ICT, Muhondo Health Center & Rukomo Sector</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-gray-800 space-y-2">
+                        <div class="text-3xl font-extrabold text-emerald-400">8+</div>
+                        <div class="text-sm font-medium text-gray-300">Languages & Tools</div>
+                        <p class="text-xs text-gray-500">Python, Java, PHP, MySQL, Jupyter & Security tools</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-gray-800 space-y-2">
+                        <div class="text-3xl font-extrabold text-emerald-400">100%</div>
+                        <div class="text-sm font-medium text-gray-300">Certified</div>
+                        <p class="text-xs text-gray-500">Hackviser Cybersecurity Foundations</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-gray-800 space-y-2">
+                        <div class="text-3xl font-extrabold text-cyan-400">2024</div>
+                        <div class="text-sm font-medium text-gray-300">BIT Honours</div>
+                        <p class="text-xs text-gray-500">University of Rwanda Degree Graduate</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="space-y-8">
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <h2 class="text-xs font-bold text-cyan-400 uppercase tracking-widest">About Me</h2>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Bridging Business Needs with Technology</h3>
+                <p class="text-gray-400 leading-relaxed">
+                    Combining analytical rigor from my Business Information Technology degree with practical full-stack and database engineering skills.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-8 rounded-2xl space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white">Software Engineering</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Comfortable developing backend and frontend applications using PHP, Java, Python, and modern web standards with clear system documentation.
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white">Database & Data Management</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Experienced in structured database design using MySQL, optimizing data workflows, and eliminating inconsistencies in real operational environments.
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white">Cybersecurity Awareness</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Certified in foundational cybersecurity concepts from Hackviser, skilled with network scanning tools and Linux CLI command environments.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Skills Matrix -->
+        <section id="skills" class="space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div class="space-y-2">
+                    <h2 class="text-xs font-bold text-cyan-400 uppercase tracking-widest">Technical Competencies</h2>
+                    <h3 class="text-3xl font-extrabold text-white">Skills & Toolkit</h3>
+                </div>
+
+                <!-- Skill Filters -->
+                <div class="flex flex-wrap gap-2" id="skill-filters">
+                    <button onclick="filterSkills('all')" class="skill-btn active px-4 py-2 rounded-lg text-xs font-semibold bg-cyan-500 text-white transition-all">All</button>
+                    <button onclick="filterSkills('languages')" class="skill-btn px-4 py-2 rounded-lg text-xs font-semibold glass-card text-gray-300 hover:text-white transition-all">Languages</button>
+                    <button onclick="filterSkills('database')" class="skill-btn px-4 py-2 rounded-lg text-xs font-semibold glass-card text-gray-300 hover:text-white transition-all">Databases</button>
+                    <button onclick="filterSkills('security')" class="skill-btn px-4 py-2 rounded-lg text-xs font-semibold glass-card text-gray-300 hover:text-white transition-all">Security</button>
+                    <button onclick="filterSkills('tools')" class="skill-btn px-4 py-2 rounded-lg text-xs font-semibold glass-card text-gray-300 hover:text-white transition-all">IDEs & Tools</button>
+                </div>
+            </div>
+
+            <!-- Skills Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4" id="skills-grid">
+                <!-- Skill Card item -->
+                <div class="skill-card glass-card p-4 rounded-xl text-center space-y-3 transition-all hover:-translate-y-1" data-category="languages">
+                    <i class="fa-brands fa-python text-3xl text-yellow-400"></i>
+                    <div class="text-sm font-medium text-white">Python</div>
+                    <span class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded">Data & Logic</span>
+                </div>
+
+                <div class="skill-card glass-card p-4 rounded-xl text-center space-y-3 transition-all hover:-translate-y-1" data-category="languages">
+                    <i class="fa-brands fa-java text-3xl text-red-400"></i>
+                    <div class="text-sm font-medium text-white">Java</div>
+                    <span class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded">OOP Development</span>
+                </div>
+
+                <div class="skill-card glass-card p-4 rounded-xl text-center space-y-3 transition-all hover:-translate-y-1" data-category="languages">
+                    <i class="fa-brands fa-php text-3xl text-purple-400"></i>
+                    <div class="text-sm font-medium text-white">PHP</div>
+                    <span class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded">Web Back-End</span>
+                </div>
+
+                <div class="skill-card glass-card p-4 rounded-xl text-center space-y-3 transition-all hover:-translate-y-1" data-category="database">
+                    <i class="fa-solid fa-database text-3xl text-blue-400"></i>
+                    <div class="text-sm font-medium text-white">MySQL</div>
+                    <span class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded">Relational DB</span>
+                </div>
+
+                <div class="skill-card glass-card p-4 rounded-xl text-center space-y-3 transition-all hover:-translate-y-1" data-category="languages">
+                    <i class="fa-brands fa-html5 text-3xl text-orange-500"></i>
+                    <div class="text-sm font-medium text-white">HTML5 & CSS3</div>
+                    <span class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded">Front-End</span>
+                </div>
+
+                <div class="skill-card glass-card p-4 rounded-xl text-center space-y-3 transition-all hover:-translate-y-1" data-category="languages">
+                    <i class="fa-solid fa-c text-3xl text-blue-500"></i>
+                    <div class="text-sm font-medium text-white">C / C++</div>
+                    <span class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded">Systems Base</span>
+                </div>
+
+                <div class="skill-card glass-card p-4 rounded-xl text-center space-y-3 transition-all hover:-translate-y-1" data-category="security">
+                    <i class="fa-brands fa-linux text-3xl text-gray-200"></i>
+                    <div class="text-sm font-medium text-white">Linux CLI</div>
+                    <span class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded">Terminal & Security</span>
+                </div>
+
+                <div class="skill-card glass-card p-4 rounded-xl text-center space-y-3 transition-all hover:-translate-y-1" data-category="security">
+                    <i class="fa-solid fa-network-wired text-3xl text-emerald-400"></i>
+                    <div class="text-sm font-medium text-white">Nmap</div>
+                    <span class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded">Network Audit</span>
+                </div>
+
+                <div class="skill-card glass-card p-4 rounded-xl text-center space-y-3 transition-all hover:-translate-y-1" data-category="security">
+                    <i class="fa-solid fa-[#00ff88] fa-fish text-3xl text-cyan-400"></i>
+                    <div class="text-sm font-medium text-white">Wireshark</div>
+                    <span class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded">Packet Analysis</span>
+                </div>
+
+                <div class="skill-card glass-card p-4 rounded-xl text-center space-y-3 transition-all hover:-translate-y-1" data-category="security">
+                    <i class="fa-solid fa-bug text-3xl text-orange-400"></i>
+                    <div class="text-sm font-medium text-white">Burp Suite</div>
+                    <span class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded">Web Vulnerability</span>
+                </div>
+
+                <div class="skill-card glass-card p-4 rounded-xl text-center space-y-3 transition-all hover:-translate-y-1" data-category="tools">
+                    <i class="fa-solid fa-book-open text-3xl text-amber-500"></i>
+                    <div class="text-sm font-medium text-white">Jupyter Notebook</div>
+                    <span class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded">Data Science</span>
+                </div>
+
+                <div class="skill-card glass-card p-4 rounded-xl text-center space-y-3 transition-all hover:-translate-y-1" data-category="tools">
+                    <i class="fa-solid fa-laptop-code text-3xl text-indigo-400"></i>
+                    <div class="text-sm font-medium text-white">NetBeans / Eclipse</div>
+                    <span class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded">Java IDEs</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Showcase -->
+        <section id="projects" class="space-y-8">
+            <div class="space-y-2">
+                <h2 class="text-xs font-bold text-cyan-400 uppercase tracking-widest">Selected Work</h2>
+                <h3 class="text-3xl font-extrabold text-white">Featured Projects</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between text-xs text-cyan-400 font-mono">
+                            <span>FULL-STACK WEB SYSTEM</span>
+                            <i class="fa-solid fa-bus text-lg"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                            Horizon Company Ticket Booking System
+                        </h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            A centralized transportation booking portal allowing passengers to check real-time travel routes, departure times, and reserve tickets online.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-cyan-950 text-cyan-300 border border-cyan-800">PHP</span>
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-cyan-950 text-cyan-300 border border-cyan-800">MySQL</span>
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-cyan-950 text-cyan-300 border border-cyan-800">Java</span>
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-cyan-950 text-cyan-300 border border-cyan-800">HTML/CSS</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openModal('project-1')" class="w-full py-2.5 rounded-xl bg-gray-800 hover:bg-cyan-600 hover:text-white text-gray-200 text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                            View Case Study & Code Snippet <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between text-xs text-emerald-400 font-mono">
+                            <span>DATA SCIENCE & ML</span>
+                            <i class="fa-solid fa-chart-line text-lg"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">
+                            Graduation Readiness Forecasting System
+                        </h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Data analytics model verifying student eligibility for graduation based on academic grades and attendance records using Python data stack.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-950 text-emerald-300 border border-emerald-800">Python</span>
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-950 text-emerald-300 border border-emerald-800">Jupyter</span>
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-950 text-emerald-300 border border-emerald-800">Pandas</span>
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-emerald-950 text-emerald-300 border border-emerald-800">Seaborn</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openModal('project-2')" class="w-full py-2.5 rounded-xl bg-gray-800 hover:bg-emerald-600 hover:text-white text-gray-200 text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                            View Case Study & Code Snippet <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between text-xs text-cyan-400 font-mono">
+                            <span>CYBERSECURITY LAB</span>
+                            <i class="fa-solid fa-shield-cat text-lg"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                            Vulnerability Assessment & Network Lab
+                        </h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Practical hands-on lab audits on Hackviser testing network ports, analyzing packet flows, and practicing security assessment workflows.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-gray-800 text-gray-300 border border-gray-700">Linux CLI</span>
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-gray-800 text-gray-300 border border-gray-700">Nmap</span>
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-gray-800 text-gray-300 border border-gray-700">Wireshark</span>
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-gray-800 text-gray-300 border border-gray-700">Burp Suite</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openModal('project-3')" class="w-full py-2.5 rounded-xl bg-gray-800 hover:bg-cyan-600 hover:text-white text-gray-200 text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                            View Case Study & Details <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Education Section -->
+        <section id="experience" class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Experience Timeline -->
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <h2 class="text-xs font-bold text-cyan-400 uppercase tracking-widest">Career Pathway</h2>
+                    <h3 class="text-2xl font-extrabold text-white">Professional Experience</h3>
+                </div>
+
+                <div class="relative border-l-2 border-gray-800 ml-3 space-y-8 pl-6">
+                    <!-- Item 1 -->
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-cyan-500 border-4 border-darkbg"></div>
+                        <div class="text-xs font-mono text-cyan-400 mb-1">March 2024 – April 2024</div>
+                        <h4 class="text-lg font-bold text-white">ICT Intern</h4>
+                        <div class="text-sm text-gray-400 mb-2">University of Rwanda — ICT Department</div>
+                        <ul class="text-xs text-gray-400 space-y-1.5 list-disc list-inside">
+                            <li>Contributed to front-end and back-end web application components for internal university systems.</li>
+                            <li>Executed database schema maintenance tasks adhering to relational design principles.</li>
+                            <li>Strengthened real-world system analysis and troubleshooting techniques in a operational team.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-emerald-500 border-4 border-darkbg"></div>
+                        <div class="text-xs font-mono text-emerald-400 mb-1">November 2018</div>
+                        <h4 class="text-lg font-bold text-white">ICT Intern</h4>
+                        <div class="text-sm text-gray-400 mb-2">Muhondo Health Center</div>
+                        <ul class="text-xs text-gray-400 space-y-1.5 list-disc list-inside">
+                            <li>Digitized and maintained patient records in Microsoft Excel to replace paper archives.</li>
+                            <li>Improved speed and precision of clinical staff info retrieval during active shifts.</li>
+                            <li>Standardized data entry workflows to eliminate duplicate entries and errors.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-gray-600 border-4 border-darkbg"></div>
+                        <div class="text-xs font-mono text-gray-400 mb-1">November 2017</div>
+                        <h4 class="text-lg font-bold text-white">ICT Operations Intern</h4>
+                        <div class="text-sm text-gray-400 mb-2">Rukomo Sector</div>
+                        <ul class="text-xs text-gray-400 space-y-1.5 list-disc list-inside">
+                            <li>Assisted local administration with basic IT support and hardware/software troubleshooting.</li>
+                            <li>Supported administrative data management and digital document processing.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Timeline -->
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <h2 class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Academic Journey</h2>
+                    <h3 class="text-2xl font-extrabold text-white">Education & Qualifications</h3>
+                </div>
+
+                <div class="relative border-l-2 border-gray-800 ml-3 space-y-8 pl-6">
+                    <!-- Edu 1 -->
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-cyan-500 border-4 border-darkbg"></div>
+                        <div class="text-xs font-mono text-cyan-400 mb-1">2021 – 2024</div>
+                        <h4 class="text-lg font-bold text-white">Bachelor of Science with Honours in Business Information Technology</h4>
+                        <div class="text-sm text-gray-400 mb-2">University of Rwanda</div>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Focused on system analysis, database systems, software engineering principles, financial systems, and business process automation.
+                        </p>
+                    </div>
+
+                    <!-- Edu 2 -->
+                    <div class="relative group">
+                        <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-emerald-500 border-4 border-darkbg"></div>
+                        <div class="text-xs font-mono text-emerald-400 mb-1">2017 – 2019</div>
+                        <h4 class="text-lg font-bold text-white">A2 Certificate in Software Development</h4>
+                        <div class="text-sm text-gray-400 mb-2">Ecole Technique St. Kizito, Save</div>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Foundational vocational programming training covering Java, C, web basics, and database basics.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cybersecurity & Certification Highlight -->
+        <section id="security" class="glass-card p-8 rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-cardbg to-darkbg relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-cyan-400 text-9xl pointer-events-none">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="max-w-3xl space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+                    <i class="fa-solid fa-certificate"></i> Verified Certification
+                </div>
+
+                <h3 class="text-3xl font-extrabold text-white">Cybersecurity Foundations Certified</h3>
+
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    Issued via the <strong class="text-cyan-400">Hackviser Platform</strong> (Valid through August 2026). Practical coursework covering core security concepts, Linux operational security, threat recognition, and network auditing tools.
+                </p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
+                    <div class="p-3 bg-gray-900/80 rounded-xl border border-gray-800 text-center">
+                        <div class="text-xs text-gray-400">Platform</div>
+                        <div class="text-sm font-bold text-white">Hackviser</div>
+                    </div>
+                    <div class="p-3 bg-gray-900/80 rounded-xl border border-gray-800 text-center">
+                        <div class="text-xs text-gray-400">Focus</div>
+                        <div class="text-sm font-bold text-cyan-400">Security Fundamentals</div>
+                    </div>
+                    <div class="p-3 bg-gray-900/80 rounded-xl border border-gray-800 text-center">
+                        <div class="text-xs text-gray-400">Key Tool</div>
+                        <div class="text-sm font-bold text-emerald-400">Linux & Nmap</div>
+                    </div>
+                    <div class="p-3 bg-gray-900/80 rounded-xl border border-gray-800 text-center">
+                        <div class="text-xs text-gray-400">Validity</div>
+                        <div class="text-sm font-bold text-white">Aug 2026</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <h2 class="text-xs font-bold text-cyan-400 uppercase tracking-widest">Connect</h2>
+                <h3 class="text-3xl font-extrabold text-white">Get In Touch</h3>
+                <p class="text-gray-400 text-sm">
+                    Open to junior software developer, database assistant, or technical support opportunities.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <!-- Direct Contacts -->
+                <div class="md:col-span-5 space-y-4">
+                    <div class="glass-card p-6 rounded-2xl flex items-center justify-between group cursor-pointer" onclick="copyToClipboard('iradukundaepiphanie49@gmail.com')">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400">Email Address</div>
+                                <div class="text-sm font-semibold text-white break-all">iradukundaepiphanie49@gmail.com</div>
+                            </div>
+                        </div>
+                        <i class="fa-regular fa-copy text-gray-500 group-hover:text-cyan-400 transition-colors"></i>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl flex items-center justify-between group cursor-pointer" onclick="copyToClipboard('+250786463560')">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400">Phone Number</div>
+                                <div class="text-sm font-semibold text-white">+250 786 463 560</div>
+                            </div>
+                        </div>
+                        <i class="fa-regular fa-copy text-gray-500 group-hover:text-emerald-400 transition-colors"></i>
+                    </div>
+
+                    <a href="https://www.linkedin.com/in/iradukunda-epiphanie-107865410/" target="_blank" class="glass-card p-6 rounded-2xl flex items-center justify-between group block">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400">LinkedIn Profile</div>
+                                <div class="text-sm font-semibold text-white">IRADUKUNDA Epiphanie</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-gray-500 group-hover:text-blue-400 transition-colors"></i>
+                    </a>
+                </div>
+
+                <!-- Interactive Contact Message Box -->
+                <div class="md:col-span-7 glass-card p-8 rounded-2xl border border-gray-800">
+                    <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-400 mb-1">Your Name</label>
+                                <input type="text" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-400 mb-1">Your Email</label>
+                                <input type="email" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-400 mb-1">Subject</label>
+                            <input type="text" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors" placeholder="Job Opportunity / Inquiry">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-400 mb-1">Message</label>
+                            <textarea rows="4" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors" placeholder="Write your message here..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-white font-semibold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-8 mt-20 bg-darkbg">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 space-y-2">
+            <p>© 2026 IRADUKUNDA Epiphanie. All rights reserved.</p>
+            <p class="font-mono text-[11px]">Designed for Software Development & Database Engineering Excellence</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Project Detail Modals -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        
+        <!-- Modal 1: Horizon Ticket System -->
+        <div id="modal-project-1" class="modal-content hidden max-w-3xl w-full glass-card bg-cardbg rounded-2xl border border-cyan-500/30 overflow-hidden max-h-[90vh] flex flex-col">
+            <div class="p-6 border-b border-gray-800 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white">Horizon Transportation Ticket Booking System</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="p-6 space-y-6 overflow-y-auto">
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold text-cyan-400 uppercase">System Overview</h4>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Designed to solve remote client travel booking needs. Clients can view destination schedules, ticket pricing, available seating, and submit booking requests online.
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold text-cyan-400 uppercase">Architecture & Tools</h4>
+                    <p class="text-sm text-gray-300">Built using Eclipse/NetBeans IDEs, PHP backend scripts, MySQL relational databases, and CSS/HTML layouts.</p>
+                </div>
+
+                <!-- Code Snippet Container -->
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center text-xs text-gray-400">
+                        <span class="font-mono">booking_process.php (Sample PHP Backend Script)</span>
+                    </div>
+                    <pre class="bg-gray-950 p-4 rounded-xl text-xs font-mono text-cyan-300 overflow-x-auto border border-gray-800"><code>&lt;?php
+// Database connection for Horizon Ticket System
+$conn = new mysqli("localhost", "root", "", "horizon_tickets");
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Process ticket reservation
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $passenger_name = mysqli_real_escape_string($conn, $_POST['fullname']);
+    $destination = mysqli_real_escape_string($conn, $_POST['destination']);
+    $travel_date = $_POST['travel_date'];
+
+    $sql = "INSERT INTO bookings (passenger_name, destination, travel_date, status) 
+            VALUES ('$passenger_name', '$destination', '$travel_date', 'CONFIRMED')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo json_encode(["status" => "success", "message" => "Ticket booked successfully!"]);
+    } else {
+        echo json_encode(["status" => "error", "message" => $conn->error]);
+    }
+}
+?&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 2: Graduation Readiness -->
+        <div id="modal-project-2" class="modal-content hidden max-w-3xl w-full glass-card bg-cardbg rounded-2xl border border-emerald-500/30 overflow-hidden max-h-[90vh] flex flex-col">
+            <div class="p-6 border-b border-gray-800 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white">Graduation Readiness Forecasting System</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="p-6 space-y-6 overflow-y-auto">
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold text-emerald-400 uppercase">System Overview</h4>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Data science project developed using Python in Anaconda Jupyter Notebooks to verify if students meet graduation criteria based on marks and attendance percentages.
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold text-emerald-400 uppercase">Key Features</h4>
+                    <ul class="text-xs text-gray-300 space-y-1 list-disc list-inside">
+                        <li>Computes mean, median, and variance across student cohorts.</li>
+                        <li>Generates Correlation Heatmaps to evaluate mark-attendance relationship.</li>
+                        <li>Automates eligibility categorization into Ready vs. Pending.</li>
+                    </ul>
+                </div>
+
+                <!-- Code Snippet Container -->
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center text-xs text-gray-400">
+                        <span class="font-mono">graduation_analysis.py (Python Pandas Snippet)</span>
+                    </div>
+                    <pre class="bg-gray-950 p-4 rounded-xl text-xs font-mono text-emerald-300 overflow-x-auto border border-gray-800"><code>import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load student records dataset
+df = pd.read_csv('student_academic_records.csv')
+
+# Compute statistical eligibility score
+df['Eligibility_Score'] = (df['Average_Mark'] * 0.7) + (df['Attendance_Rate'] * 0.3)
+df['Graduation_Ready'] = df['Eligibility_Score'].apply(lambda x: 'READY' if x >= 60 else 'NOT_READY')
+
+# Output correlation heatmap
+plt.figure(figsize=(8,5))
+sns.heatmap(df[['Average_Mark', 'Attendance_Rate', 'Eligibility_Score']].corr(), annot=True, cmap='viridis')
+plt.title('Academic Features Correlation Matrix')
+plt.show()
+
+print("Graduation Ready Students Count:", len(df[df['Graduation_Ready'] == 'READY']))</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 3: Cybersecurity -->
+        <div id="modal-project-3" class="modal-content hidden max-w-3xl w-full glass-card bg-cardbg rounded-2xl border border-cyan-500/30 overflow-hidden max-h-[90vh] flex flex-col">
+            <div class="p-6 border-b border-gray-800 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white">Vulnerability Assessment & Security Lab</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="p-6 space-y-6 overflow-y-auto">
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold text-cyan-400 uppercase">Certification Context</h4>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Completed via Hackviser certification curriculum. Focuses on system security posture, identifying open ports, evaluating web application entry points, and analyzing network traffic.
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold text-cyan-400 uppercase">Core Skills Demonstrated</h4>
+                    <div class="grid grid-cols-2 gap-3 text-xs text-gray-300">
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-800">Nmap Port Scanning</div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-800">Wireshark Packet Inspection</div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-800">Linux CLI Administration</div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-800">Burp Suite Web Auditing</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Typing Effect for Hero
+        const phrases = [
+            "Junior Software Developer",
+            "Database Specialist",
+            "Business IT Graduate",
+            "Cybersecurity Certified"
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 100;
+        const typingElement = document.getElementById("typing-text");
+
+        function typeLoop() {
+            const currentPhrase = phrases[phraseIndex];
+            if (isDeleting) {
+                typingElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                setTimeout(() => isDeleting = true, 1800);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+            }
+
+            setTimeout(typeLoop, isDeleting ? 50 : typingSpeed);
+        }
+        typeLoop();
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Skill filtering logic
+        function filterSkills(category) {
+            const cards = document.querySelectorAll('.skill-card');
+            const buttons = document.querySelectorAll('.skill-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-cyan-500', 'text-white', 'active');
+                btn.classList.add('glass-card', 'text-gray-300');
+            });
+
+            event.target.classList.add('bg-cyan-500', 'text-white', 'active');
+            event.target.classList.remove('glass-card', 'text-gray-300');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Modal Controls
+        function openModal(modalId) {
+            document.getElementById('modal-backdrop').classList.remove('hidden');
+            document.querySelectorAll('.modal-content').forEach(m => m.classList.add('hidden'));
+            document.getElementById(`modal-${modalId}`).classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-backdrop').classList.add('hidden');
+        }
+
+        document.getElementById('modal-backdrop').addEventListener('click', (e) => {
+            if (e.target.id === 'modal-backdrop') closeModal();
+        });
+
+        // Copy Clipboard Helper
+        function copyToClipboard(text) {
+            const tempInput = document.createElement("input");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            showToast(`Copied "${text}" to clipboard!`);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Contact Form Fake Submit Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            showToast("Thank you! Your message has been sent successfully.");
+            e.target.reset();
+        }
+
+        // Downloadable Resume Summary Simulation
+        function downloadResume() {
+            const resumeText = `
+==================================================
+IRADUKUNDA EPIPHANIE - PROFESSIONAL SUMMARY
+==================================================
+Role: Junior Software Developer & Database Specialist
+Location: Nyagatare, Eastern Province, Rwanda
+Phone: +250 786 463 560
+Email: iradukundaepiphanie49@gmail.com
+LinkedIn: https://www.linkedin.com/in/iradukunda-epiphanie-107865410/
+
+EDUCATION:
+- BSc (Honours) Business Information Technology (2021-2024) - University of Rwanda
+- A2 Certificate Software Development (2017-2019) - Ecole Technique St. Kizito
+
+KEY SKILLS:
+Languages: Python, Java, PHP, C, C++, SQL, HTML/CSS
+Databases: MySQL
+Security Tools: Linux CLI, Nmap, Wireshark, Burp Suite
+Certifications: Cybersecurity Foundations (Hackviser - Valid Aug 2026)
+==================================================
+            `;
+
+            const blob = new Blob([resumeText], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'IRADUKUNDA_Epiphanie_Summary.txt';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
